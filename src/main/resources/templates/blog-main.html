@@ -11,6 +11,11 @@
 
 <div class="container mt-5">
   <h1>Blog Page</h1>
+  <div th:each="element : ${posts}" class="alert alert-info mt-2">
+    <h3 th:text="${element.title}"></h3>
+    <p th:text="${element.preview}"></p>
+    <a th:href="'/blog/' + ${element.id}">Read...</a>
+  </div>
 </div>
 
 <footer th:insert="~{blocks/footer :: footer}"></footer>
