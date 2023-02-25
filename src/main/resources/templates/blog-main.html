@@ -20,10 +20,10 @@
   <h1 style="text-align: center">Last posts: </h1>
   <br>
   <div th:each="element : ${posts}" class="alert alert-info mt-2">
+    <div class="post-date" th:text="${#dates.format(element.creationDate, 'dd-MM-yyyy HH:mm')}"></div>
     <h3 th:text="${element.title}"></h3>
     <p th:text="${element.preview}"></p>
-    <div class="post-date" th:text="${#dates.format(element.creationDate, 'dd-MM-yyyy HH:mm')}"></div>
-    <a th:href="'/blog/' + ${element.id}">Read...</a>
+    <a class="btn btn-warning" th:href="'/blog/' + ${element.id}">Read...</a>
   </div>
 </div>
 
