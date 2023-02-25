@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Date;
 
 @Controller
 public class BlogController {
@@ -17,5 +21,17 @@ public class BlogController {
         Iterable<Post> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
         return "blog-main";
+    }
+
+    @GetMapping("blog/add")
+    public String blogAdd(Model model) {
+        return "blog-add";
+    }
+
+    @PostMapping("blog/add")
+    public String addPost(@ModelAttribute Post post) {
+        post.setCreationDate(new Date());
+        postRepository.save(post);
+        return "redirect:/blog";
     }
 }

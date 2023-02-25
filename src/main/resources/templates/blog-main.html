@@ -4,16 +4,25 @@
   <title>Blog Page</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <style>
+    .post-date {
+      font-style: italic;
+      font-size: smaller;
+      text-align: right;
+    }
+  </style>
 </head>
 <body>
 
 <div th:replace="~{blocks/header :: header}"></div>
 
 <div class="container mt-5">
-  <h1>Blog Page</h1>
+  <h1 style="text-align: center">Last posts: </h1>
+  <br>
   <div th:each="element : ${posts}" class="alert alert-info mt-2">
     <h3 th:text="${element.title}"></h3>
     <p th:text="${element.preview}"></p>
+    <div class="post-date" th:text="${#dates.format(element.creationDate, 'dd-MM-yyyy HH:mm')}"></div>
     <a th:href="'/blog/' + ${element.id}">Read...</a>
   </div>
 </div>
