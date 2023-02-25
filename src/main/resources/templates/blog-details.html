@@ -9,6 +9,9 @@
       font-style: italic;
       font-size: smaller;
     }
+    .btn-container {
+    display: flex;
+  }
   </style>
 </head>
 <body>
@@ -22,7 +25,13 @@
     <div class="post-date" th:text="${#dates.format(element.creationDate, 'dd-MM-yyyy HH:mm')}"></div>
     <br><br>
     <p th:text="${element.text}"></p>
-    <a class="btn btn-warning" th:href="'/blog/' + ${element.id} + '/edit'">Edit</a>
+    <div class="btn-container">
+      <a class="btn btn-warning" th:href="'/blog/' + ${element.id} + '/edit'">Edit</a>
+      <span style="margin-left: 10px;"></span>
+      <form th:action="'/blog/' + ${element.id} + '/remove'" method="post">
+        <button class="btn btn-warning" type="submit">Delete</button>
+      </form>
+    </div>
   </div>
 </div>
 
