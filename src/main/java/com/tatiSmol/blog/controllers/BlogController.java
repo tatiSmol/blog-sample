@@ -49,4 +49,31 @@ public class BlogController {
         model.addAttribute("post", res);
         return "blog-details";
     }
+
+    @GetMapping("blog/{id}/edit")
+    public String editPost(@PathVariable(value = "id") long id, Model model) {
+        if (!postRepository.existsById(id)) {
+            return "redirect:/blog";
+        }
+        Optional<Post> post = postRepository.findById(id);
+        ArrayList<Post> res = new ArrayList<>();
+        post.ifPresent(res::add);
+        model.addAttribute("post", res);
+        return "blog-edit";
+    }
+
+    @PostMapping("blog/{id}/edit")
+    public String saveEditedPost(@ModelAttribute Post updatedPost, @PathVariable(value = "id") long id) {
+        Optional<Post> post = postRepository.findById(id);
+        if (post.isPresent()) {
+            Post oldPost = post.get();
+            oldPost.setTitle(updatedPost.getTitle());
+            oldPost.setPreview(updatedPost.getPreview());
+            oldPost.setText(updatedPost.getText());
+            oldPost.setCreationDate(new Date());
+            postRepository.save(oldPost);
+        }
+
+        return "redirect:/blog/" + id;
+    }
 }
